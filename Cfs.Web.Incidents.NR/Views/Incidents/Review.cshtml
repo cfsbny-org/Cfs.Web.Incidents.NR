@@ -1,0 +1,356 @@
+﻿
+@{
+    ViewBag.Title = "Review Incident Report";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+
+@section AdditionalIncludes {
+    <link rel="stylesheet" type="text/css" href="~/Content/css/fancyapps.core.css" />
+    <script type="text/javascript" src="~/scripts/fancyapps.core.js"></script>
+    <script type="text/javascript" src="~/scripts/controllers/reports/review.js"></script>
+}
+
+<div ng-app="ReviewReportApp" ng-controller="ReviewIncidentController">
+    <h2>Review Incident Report</h2>
+
+    <div class="form-group">
+        <label for="program-list">Program/Department:</label>
+        <select class="form-control" id="program-list" ng-options="program.incidentProgramId as program.programTitle for program in programs" ng-model="header.programId" disabled="disabled"></select>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Person Completing Report: </label>
+        <input type="text" class="form-control" disabled="disabled" value="{{header.staffName}}" />
+    </div>
+    <div class="clearfix">
+        <div class="form-group col-xs-2">
+            <label for="incident-date" class="control-label">Date of event:</label>
+            <input type="text" id="incident-date" class="form-control" ng-model="header.incidentDate | date: 'M/d/yyyy'" disabled="disabled" />
+            <div>
+                <label class="radio-inline"><input type="checkbox" id="is-approximate" ng-model="header.isApproximate" disabled="disabled" /> Is approximate date</label>
+            </div>
+            <div>
+                <label class="radio-inline"><input type="checkbox" id="is-ongoing" ng-model="header.incidentOngoing" disabled="disabled" /> Ongoing?</label>
+            </div>
+        </div>
+        <div class="form-group col-xs-2">
+            <label for="incident-time" class="control-label">Time of event:</label>
+            <input type="text" id="incident-time" class="form-control" ng-model="header.incidentTime" disabled="disabled" />
+        </div>
+        <div class="form-group col-xs-2">
+            <label for="date-discovered" class="control-label">Date discovered:</label>
+            <input type="text" id="date-discovered" class="form-control" ng-model="header.dateDiscovered | date: 'M/d/yyyy'" disabled="disabled" />
+        </div>
+        <div class="form-group col-xs-6">
+            <label for="event-location" class="control-label">Location of event:</label>
+            <input type="text" id="event-location" class="form-control" ng-model="header.incidentLocation" disabled="disabled" />
+        </div>
+    </div>
+    <h3 class="h3-report-section">Client Information</h3>
+    <div class="clearfix">
+        <div class="form-group col-xs-4">
+            <label for="client-name" class="control-label">Client name:</label>
+            <input type="text" id="client-name" class="form-control" ng-model="header.clientName" disabled="disabled" />
+        </div>
+        <div class="form-group col-xs-2">
+            <label for="client-id" class="control-label">Client ID#:</label>
+            <input type="text" id="client-id" class="form-control" ng-model="header.clientId" disabled="disabled" />
+        </div>
+        <div class="form-group col-xs-2">
+            <label for="client-gender" class="control-label">Client gender:</label>
+            <div>
+                <label class="radio-inline"><input type="radio" name="client-gender" value="F" ng-model="header.clientGender" disabled="disabled" /> Female</label>
+                <label class="radio-inline"><input type="radio" name="client-gender" value="M" ng-model="header.clientGender" disabled="disabled" /> Male</label>
+            </div>
+        </div>
+        <div class="form-group col-xs-2">
+            <label for="birth-date" class="control-label">Client birth date:</label>
+            <input type="text" id="birth-date" class="form-control" ng-model="header.clientDob | date: 'M/d/yyyy'" disabled="disabled" />
+        </div>
+        <div class="form-group col-xs-12">
+            <label for="contact-information" class="control-label">Contact information:</label>
+            <div id="contact-information" ng-bind="details.contactInfo" class="user-response-display"></div>
+        </div>
+        <div class="form-group col-xs-12">
+            <label>Is the client on the high-risk list?</label>
+            <div>
+                <label class="radio-inline"><input type="radio" name="is-high-risk" ng-value="true" ng-model="header.isClientHighRisk" disabled="disabled" /> Yes</label>
+                <label class="radio-inline"><input type="radio" name="is-high-risk" ng-value="false" ng-model="header.isClientHighRisk" disabled="disabled" /> No</label>
+            </div>
+        </div>
+        <div class="form-group col-xs-12">
+            <label>Add client to the high-risk list?</label>
+            <div>
+                <label class="radio-inline"><input type="radio" name="add-high-risk" ng-value="true" ng-model="header.addClientToHighRisk" disabled="disabled" /> Yes</label>
+                <label class="radio-inline"><input type="radio" name="add-high-risk" ng-value="false" ng-model="header.addClientToHighRisk" disabled="disabled" /> No</label>
+            </div>
+        </div>
+    </div>
+
+
+
+    <h3 class="h3-report-section">Staff Involved</h3>
+    <p>
+        Add any other staff involved in this incident.  An <b>Employee Accident/Alleged Injury Investigation Report</b> must also be completed
+        for any <i>accidents</i> involving staff.
+    </p>
+    <table class="table auto-width">
+        <thead>
+            <tr>
+                <th>Staff Name</th>
+                <th>Staff Title</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="staff in incidentStaff">
+                <td>{{staff.staffName}}</td>
+                <td>{{staff.staffTitle}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="clearfix">
+
+    </div>
+    <h3 class="h3-report-section">Other Individuals Involved</h3>
+    <div class="form-group">
+        <label>Individuals other than client and staff involved: (check all that apply)</label>
+        <div>
+            <label class="checkbox-inline"><input type="checkbox" name="involved" value="intern-involved" disabled="disabled" ng-model="details.internInvolved" /> Intern</label>
+            <label class="checkbox-inline"><input type="checkbox" name="involved" value="volunteer-involved" disabled="disabled" ng-model="details.volunteerInvolved" /> Volunteer</label>
+            <label class="checkbox-inline"><input type="checkbox" name="involved" value="visitor-involved" disabled="disabled" ng-model="details.visitorInvolved" /> Visitor</label>
+            <label class="checkbox-inline"><input type="checkbox" name="involved" value="other-involved" disabled="disabled" ng-model="details.otherInvolved" /> Other</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="others-involved" class="control-label">Information about other individuals involved:</label>
+        <div id="others-involved" class="user-response-display" ng-bind="details.otherInvolvedDetails"></div>
+    </div>
+
+    <h3 class="h3-report-section">Incident Details</h3>
+    <div class="form-group">
+        <label>Type of Incident:</label>
+        <span class="incident-type-label user-response-display" ng-bind="incidentTypeSelected"></span>
+    </div>
+    <div class="clearfix">
+        <div class="form-group col-xs-2">
+            <label for="level-of-harm" class="control-label">Level of harm:</label>
+            <select id="level-of-harm" class="form-control" ng-options="level.value as level.name for level in levels" ng-model="details.harmLevel" disabled="disabled"></select>
+        </div>
+        <div class="form-group col-xs-2">
+            <label for="level-of-risk" class="control-label">Level of risk:</label>
+            <select id="level-of-risk" class="form-control" ng-options="level.value as level.name for level in levels" ng-model="details.riskLevel" disabled="disabled"></select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="incident-description" class="control-label">Description of event and interventions:</label>
+        <div ng-bind="details.incidentDetails" class="user-response-display"></div>
+    </div>
+
+
+    <h3 class="h3-report-section">Attachments</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>File</th>
+                <th>Title</th>
+                <th>Comments</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="document in incidentDocuments">
+                <td>{{document.documentFileName}}</td>
+                <td>{{document.documentTitle}}</td>
+                <td>{{document.documentComments}}</td>
+                <td>
+                    <a data-fancybox="attachment-gallery" href="{{document.documentUrl}}"><span class="fa fa-eye"></span></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+
+
+    <h3 class="h3-report-section">Notifications</h3>
+
+
+    <div class="panel panel-default" id="notifications-panel">
+        <div class="panel-heading"><span class="fa fa-bullhorn"></span> Add Notification</div>
+        <div class="panel-body">
+            <h4>Automatic Notifications</h4>
+            <div class="form-group">
+                <button type="button" class="btn btn-warning" ng-click="NotifyCompliance()" ng-disabled="isReadOnly"><span class="fa fa-user-secret"></span> Notify Compliance</button>
+                <button type="button" class="btn btn-warning" ng-click="NotifyCoo()" ng-disabled="isReadOnly"><span class="fa fa-user-secret"></span> Notify COO</button>
+            </div>
+            <h4>Other Notifications</h4>
+            <div class="clearfix">
+                <div class="form-group col-xs-2">
+                    <label for="notify-party" class="control-label">Party Notified:</label>
+                    <select class="form-control" id="notify-party" ng-options="party as party.notifyPartyText for party in notifyParties" ng-model="notifyParty" ng-change="SelectNotifier()"></select>
+                </div>
+                <div class="form-group col-xs-2">
+                    <label for="notify-contact" class="control-label">Contact Method:</label>
+                    <input type="text" class="form-control" ng-model="notifyMethod" />
+                </div>
+                <div class="form-group col-xs-2">
+                    <label for="contact-date" class="control-label">Contacted Date:</label>
+                    <input type="date" class="form-control" id="contact-date" ng-model="notifyDate" />
+                </div>
+                <div class="form-group col-xs-2">
+                    <label for="contact-time" class="control-label">Contacted Time:</label>
+                    <input type="text" class="form-control" id="contact-time" ng-model="notifyTime" placeholder="hh:mm aa" />
+                </div>
+                <div class="form-group col-xs-2" ng-show="notifyParty.notifyPartyId == '1'">
+                    <label for="call-id" class="control-label">Justice Center Call #:</label>
+                    <input type="text" class="form-control" id="call-id" ng-model="notifyContact" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="notify-comments" class="control-label">Comments:</label>
+                <textarea id="notify-comments" class="form-control" ng-model="notifyComments" rows="4"></textarea>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-info" ng-click="AddNotification()"><span class="fa fa-bullhorn"></span> Add Notifcation</button>
+            </div>
+
+            <h4>Saved Notifications</h4>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Party Notified</th>
+                        <th>Date/Time</th>
+                        <th>Contact Method</th>
+                        <th>Comments</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="notification in incidentNotifications">
+                        <td>{{notification.notifyPartyText}}</td>
+                        <td>{{notification.notifyDateTime | date: 'M/d/yyyy h:mm a'}}</td>
+                        <td>{{notification.notifyMethod}}</td>
+                        <td>{{notifcation.notifyComments}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <h3 class="h3-report-section">Administrator Comments</h3>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Administrator</th>
+                <th>Comment</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="comment in comments">
+                <td>{{comment.adminUserName}}<br /><span class="small">{{comment.adminCommentStamp | date: 'M/d/yyyy h:mm a'}}</span></td>
+                <td>{{comment.adminCommentText}}</td>
+                <td><button class="btn btn-sm btn-danger" title="Delete Comment" ng-show="{{comment.adminUserId == $parent.userId}}" ng-click="DeleteComment(comment.adminCommentId)"><span class="fa fa-trash"></span></button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4>New Comment</h4>
+
+    <div class="form-group">
+        <textarea id="new-comment" rows="8" cols="80" ng-model="newAdminComment" ng-disabled="isReadOnly"></textarea>
+    </div>
+
+    <div class="form-group">
+        <button type="button" class="btn btn-primary" ng-click="SaveComment()" ng-disabled="isReadOnly"><span class="fa fa-floppy-o"></span> save comment</button>
+    </div>
+
+
+
+
+    <h3 class="h3-report-section">Report Signatures</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Approver Level</th>
+                <th>Approver</th>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Approved/Denied Date</th>
+                <th>Approval Comments</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="signature in signatures">
+                <td>{{signature.reportSigTypeText}}</td>
+                <td>{{signature.staffName}}</td>
+                <td>{{signature.staffTitle}}</td>
+                <td>{{signature.approvalStatusText}}</td>
+                <td><span ng-hide="signature.reportSigStamp == '0001-01-01T00:00:00'">{{signature.reportSigStamp | date: 'M/d/yyyy h:mm a'}}</span></td>
+                <td>{{signature.approvalComments}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3 class="h3-report-section">Approve/Reject Incident Report</h3>
+
+
+    <div class="form-group">
+        <label for="approval-comments">Comments:</label>
+        <textarea class="form-control" id="approval-comments" ng-model="approvalComments" rows="4" cols="120" maxlength="500" ng-disabled="isReadOnly" placeholder="Comments to the user.  Will not appear on final report."></textarea>
+    </div>
+
+    <div class="form-group col-xs-4">
+        <label for="sign-for">Sign on Behalf of:</label>
+        <select class="form-control" id="sign-behalf" ng-options="signature.reportSigId as signature.staffName for signature in availableSignatures" ng-model="signOnBehalf">
+            <option value="">Me</option>
+        </select>
+    </div>
+    <div class="clearfix">
+
+    </div>
+
+    <div class="form-group col-xs-2">
+        <label for="user-signature">Signature:</label>
+        <input class="form-control" type="password" id="user-signature" ng-model="credentials" size="30" maxlength="20" ng-disabled="isReadOnly" required />
+    </div>
+    <div class="clearfix">
+
+    </div>
+    <div class="form-group">
+        <button id="approve-report" class="btn btn-success" ng-click="ApproveReport()" ng-disabled="isReadOnly"><span class="fa fa-check"></span> approve</button>
+        <button id="reject-report" class="btn btn-danger" ng-click="RejectReport()" ng-disabled="isReadOnly"><span class="fa fa-close"></span> reject</button>
+        <button id="print-report" class="btn btn-success" type="button" ng-click="PrintReport()"><span class="fa fa-print"></span> Print Report</button>
+    </div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+
+    var _incidentId = @(ViewBag.IncidentId);
+    var _userId = @(ViewBag.UserId);
+    var _staffName = '@(ViewBag.StaffName)';
+    var _staffTitle = '@(ViewBag.StaffTitle)';
+    var _staffEmail = '@(ViewBag.StaffEmail)';
+    var _stationName = '@(ViewBag.StationName)';
+
+</script>

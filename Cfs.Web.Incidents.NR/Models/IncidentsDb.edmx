@@ -1,0 +1,870 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="IncidentsNrModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="HighRisk">
+          <Key>
+            <PropertyRef Name="highRiskClientId" />
+          </Key>
+          <Property Name="highRiskClientId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="clientId" Type="varchar" MaxLength="20" />
+          <Property Name="systemId" Type="int" />
+          <Property Name="clientName" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="dateAdded" Type="smalldatetime" Nullable="false" />
+          <Property Name="dateRemoved" Type="smalldatetime" />
+          <Property Name="clientComments" Type="varchar" MaxLength="500" />
+          <Property Name="addedById" Type="bigint" Nullable="false" />
+          <Property Name="addedByName" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="addedStamp" Type="smalldatetime" Nullable="false" />
+          <Property Name="modifiedById" Type="bigint" />
+          <Property Name="modifiedByName" Type="varchar" MaxLength="80" />
+          <Property Name="modifiedStamp" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="AdminComments">
+          <Key>
+            <PropertyRef Name="adminCommentId" />
+          </Key>
+          <Property Name="adminCommentId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="incidentId" Type="bigint" Nullable="false" />
+          <Property Name="adminUserId" Type="bigint" Nullable="false" />
+          <Property Name="adminUserName" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="adminCommentText" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="adminCommentStamp" Type="smalldatetime" Nullable="false" />
+          <Property Name="isDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IncidentAttachments">
+          <Key>
+            <PropertyRef Name="incidentAttachmentId" />
+          </Key>
+          <Property Name="incidentAttachmentId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="incidentId" Type="bigint" Nullable="false" />
+          <Property Name="documentId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IncidentDetails">
+          <Key>
+            <PropertyRef Name="incidentDetailId" />
+          </Key>
+          <Property Name="incidentDetailId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="incidentId" Type="bigint" Nullable="false" />
+          <Property Name="incidentDetails" Type="varchar(max)" Nullable="false" />
+          <Property Name="childActivity" Type="varchar(max)" />
+          <Property Name="protectiveActions" Type="varchar(max)" />
+          <Property Name="eventLocation" Type="varchar" MaxLength="255" />
+          <Property Name="harmLevel" Type="float" />
+          <Property Name="riskLevel" Type="float" />
+          <Property Name="contactInfo" Type="varchar" MaxLength="500" />
+          <Property Name="incidentComments" Type="varchar(max)" />
+          <Property Name="internInvolved" Type="bit" Nullable="false" />
+          <Property Name="volunteerInvolved" Type="bit" Nullable="false" />
+          <Property Name="visitorInvolved" Type="bit" Nullable="false" />
+          <Property Name="otherInvolved" Type="bit" Nullable="false" />
+          <Property Name="otherInvolvedDetails" Type="varchar" MaxLength="500" />
+          <Property Name="adminComments" Type="varchar(max)" />
+          <Property Name="adminDebrief" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IncidentReport">
+          <Key>
+            <PropertyRef Name="incidentId" />
+          </Key>
+          <Property Name="incidentId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="incidentReportTypeId" Type="int" Nullable="false" />
+          <Property Name="userId" Type="bigint" Nullable="false" />
+          <Property Name="staffName" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="staffTitle" Type="varchar" MaxLength="255" />
+          <Property Name="clientName" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="clientId" Type="varchar" MaxLength="50" />
+          <Property Name="clientDob" Type="smalldatetime" Nullable="false" />
+          <Property Name="clientGender" Type="char" MaxLength="1" />
+          <Property Name="incidentDate" Type="smalldatetime" Nullable="false" />
+          <Property Name="incidentTime" Type="varchar" MaxLength="20" />
+          <Property Name="isApproximate" Type="bit" Nullable="false" />
+          <Property Name="isApproximateTime" Type="bit" Nullable="false" />
+          <Property Name="programId" Type="int" Nullable="false" />
+          <Property Name="reportingAgency" Type="char" MaxLength="4" />
+          <Property Name="incidentLocation" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="createdStamp" Type="smalldatetime" Nullable="false" />
+          <Property Name="createdStation" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="statusId" Type="int" Nullable="false" />
+          <Property Name="currentUser" Type="bigint" Nullable="false" />
+          <Property Name="lastModified" Type="smalldatetime" Nullable="false" />
+          <Property Name="lastModifiedBy" Type="bigint" Nullable="false" />
+          <Property Name="dateDiscovered" Type="smalldatetime" />
+          <Property Name="isClientHighRisk" Type="bit" />
+          <Property Name="incidentTypeId" Type="int" Nullable="false" />
+          <Property Name="addClientToHighRisk" Type="bit" Nullable="false" />
+          <Property Name="incidentOngoing" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IncidentStaff">
+          <Key>
+            <PropertyRef Name="incidentStaffId" />
+          </Key>
+          <Property Name="incidentStaffId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="incidentId" Type="bigint" Nullable="false" />
+          <Property Name="userId" Type="bigint" Nullable="false" />
+          <Property Name="staffName" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="staffTitle" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="isPrimary" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Notifications">
+          <Key>
+            <PropertyRef Name="notificationId" />
+          </Key>
+          <Property Name="notificationId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="incidentId" Type="bigint" Nullable="false" />
+          <Property Name="notifyPartyId" Type="int" Nullable="false" />
+          <Property Name="notifyDateTime" Type="smalldatetime" Nullable="false" />
+          <Property Name="notifyContact" Type="varchar" MaxLength="255" />
+          <Property Name="notifyMethod" Type="varchar" MaxLength="50" />
+          <Property Name="notifyComments" Type="varchar" MaxLength="500" />
+          <Property Name="notifyStaffId" Type="bigint" Nullable="false" />
+          <Property Name="notifyInfo" Type="varchar" MaxLength="50" />
+          <Property Name="isAcknowledged" Type="int" Nullable="false" />
+          <Property Name="acknowledgeUserId" Type="bigint" Nullable="false" />
+          <Property Name="acknowledgedStamp" Type="smalldatetime" />
+          <Property Name="acknowledgedStation" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="ReportSigns">
+          <Key>
+            <PropertyRef Name="reportSigId" />
+          </Key>
+          <Property Name="reportSigId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="incidentId" Type="bigint" Nullable="false" />
+          <Property Name="reportSigType" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="incidentMedicalId" Type="bigint" Nullable="false" />
+          <Property Name="reportSigUserId" Type="bigint" Nullable="false" />
+          <Property Name="staffName" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="staffTitle" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="approvalStatusId" Type="int" Nullable="false" />
+          <Property Name="approvalComments" Type="varchar" MaxLength="500" />
+          <Property Name="reportSigStamp" Type="smalldatetime" />
+          <Property Name="reportSigStation" Type="varchar" MaxLength="150" />
+          <Property Name="reportSigCreated" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Documents">
+          <Key>
+            <PropertyRef Name="documentId" />
+          </Key>
+          <Property Name="documentId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fileTypeId" Type="int" Nullable="false" />
+          <Property Name="documentFileName" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="documentUrl" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="documentTitle" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="documentComments" Type="varchar" MaxLength="500" />
+          <Property Name="uploadedBy" Type="bigint" Nullable="false" />
+          <Property Name="uploadedStamp" Type="smalldatetime" Nullable="false" />
+          <Property Name="isVoided" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ApprovalStatus">
+          <Key>
+            <PropertyRef Name="approvalStatusId" />
+          </Key>
+          <Property Name="approvalStatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="approvalStatusText" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ClientSystems">
+          <Key>
+            <PropertyRef Name="systemId" />
+          </Key>
+          <Property Name="systemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="systemName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HarmRiskLevels">
+          <Key>
+            <PropertyRef Name="levelId" />
+          </Key>
+          <Property Name="levelId" Type="float" Nullable="false" />
+          <Property Name="levelText" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IncidentPrograms">
+          <Key>
+            <PropertyRef Name="incidentProgramId" />
+          </Key>
+          <Property Name="incidentProgramId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="costCenterId" Type="int" Nullable="false" />
+          <Property Name="programTitle" Type="varchar" MaxLength="80" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+          <Property Name="incidentReportTypeId" Type="int" Nullable="false" />
+          <Property Name="reportingAgency" Type="char" MaxLength="4" />
+          <Property Name="programSuperId" Type="bigint" />
+          <Property Name="azSubUnit" Type="varchar" MaxLength="20" />
+          <Property Name="managerId" Type="bigint" Nullable="false" />
+          <Property Name="directorId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IncidentTypes">
+          <Key>
+            <PropertyRef Name="incidentTypeId" />
+          </Key>
+          <Property Name="incidentTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="incidentReportTypeId" Type="int" Nullable="false" />
+          <Property Name="incidentCategoryId" Type="int" Nullable="false" />
+          <Property Name="incidentTypeText" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="needsInfo" Type="bit" Nullable="false" />
+          <Property Name="needsInfoLabel" Type="varchar" MaxLength="50" />
+          <Property Name="incidentTypeReportText" Type="varchar" MaxLength="120" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NotifyParties">
+          <Key>
+            <PropertyRef Name="notifyPartyId" />
+          </Key>
+          <Property Name="notifyPartyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="incidentReportTypeId" Type="int" Nullable="false" />
+          <Property Name="notifyPartyText" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="needsInfo" Type="bit" Nullable="false" />
+          <Property Name="infoCaption" Type="varchar" MaxLength="30" />
+          <Property Name="infoPlaceholder" Type="varchar" MaxLength="150" />
+          <Property Name="validMessage" Type="varchar" MaxLength="150" />
+          <Property Name="contactDefault" Type="varchar" MaxLength="50" />
+          <Property Name="methodDefault" Type="varchar" MaxLength="50" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProgramNotifiers">
+          <Key>
+            <PropertyRef Name="programStaffId" />
+          </Key>
+          <Property Name="programStaffId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="programId" Type="int" Nullable="false" />
+          <Property Name="notifyPartyId" Type="int" Nullable="false" />
+          <Property Name="userId" Type="bigint" />
+          <Property Name="distEmail" Type="varchar" MaxLength="80" />
+          <Property Name="smsNumber" Type="varchar" MaxLength="20" />
+          <Property Name="isRemovable" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReportSigTypes">
+          <Key>
+            <PropertyRef Name="reportSigTypeId" />
+          </Key>
+          <Property Name="reportSigTypeId" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="reportSigTypeText" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReportStatus">
+          <Key>
+            <PropertyRef Name="reportStatusId" />
+          </Key>
+          <Property Name="reportStatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="reportStatusText" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="reportIsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SpecialNotifiers">
+          <Key>
+            <PropertyRef Name="notifierId" />
+          </Key>
+          <Property Name="notifierId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="notifierType" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="notifierUserId" Type="bigint" Nullable="false" />
+          <Property Name="notifierName" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="notifierEmail" Type="varchar" MaxLength="90" Nullable="false" />
+          <Property Name="notifierTitle" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="IncidentsNrModelStoreContainer">
+          <EntitySet Name="HighRisk" EntityType="Self.HighRisk" Schema="Clients" store:Type="Tables" />
+          <EntitySet Name="AdminComments" EntityType="Self.AdminComments" Schema="Incidents" store:Type="Tables" />
+          <EntitySet Name="IncidentAttachments" EntityType="Self.IncidentAttachments" Schema="Incidents" store:Type="Tables" />
+          <EntitySet Name="IncidentDetails" EntityType="Self.IncidentDetails" Schema="Incidents" store:Type="Tables" />
+          <EntitySet Name="IncidentReport" EntityType="Self.IncidentReport" Schema="Incidents" store:Type="Tables" />
+          <EntitySet Name="IncidentStaff" EntityType="Self.IncidentStaff" Schema="Incidents" store:Type="Tables" />
+          <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="Incidents" store:Type="Tables" />
+          <EntitySet Name="ReportSigns" EntityType="Self.ReportSigns" Schema="Incidents" store:Type="Tables" />
+          <EntitySet Name="Documents" EntityType="Self.Documents" Schema="Library" store:Type="Tables" />
+          <EntitySet Name="ApprovalStatus" EntityType="Self.ApprovalStatus" Schema="Lookups" store:Type="Tables" />
+          <EntitySet Name="ClientSystems" EntityType="Self.ClientSystems" Schema="Lookups" store:Type="Tables" />
+          <EntitySet Name="HarmRiskLevels" EntityType="Self.HarmRiskLevels" Schema="Lookups" store:Type="Tables" />
+          <EntitySet Name="IncidentPrograms" EntityType="Self.IncidentPrograms" Schema="Lookups" store:Type="Tables" />
+          <EntitySet Name="IncidentTypes" EntityType="Self.IncidentTypes" Schema="Lookups" store:Type="Tables" />
+          <EntitySet Name="NotifyParties" EntityType="Self.NotifyParties" Schema="Lookups" store:Type="Tables" />
+          <EntitySet Name="ProgramNotifiers" EntityType="Self.ProgramNotifiers" Schema="Lookups" store:Type="Tables" />
+          <EntitySet Name="ReportSigTypes" EntityType="Self.ReportSigTypes" Schema="Lookups" store:Type="Tables" />
+          <EntitySet Name="ReportStatus" EntityType="Self.ReportStatus" Schema="Lookups" store:Type="Tables" />
+          <EntitySet Name="SpecialNotifiers" EntityType="Self.SpecialNotifiers" Schema="Lookups" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="IncidentsNrModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="IncidentDetail">
+          <Key>
+            <PropertyRef Name="incidentDetailId" />
+          </Key>
+          <Property Name="incidentDetailId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="incidentId" Type="Int64" Nullable="false" />
+          <Property Name="incidentDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="childActivity" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="protectiveActions" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="eventLocation" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="harmLevel" Type="Double" />
+          <Property Name="riskLevel" Type="Double" />
+          <Property Name="contactInfo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="incidentComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="internInvolved" Type="Boolean" Nullable="false" />
+          <Property Name="volunteerInvolved" Type="Boolean" Nullable="false" />
+          <Property Name="visitorInvolved" Type="Boolean" Nullable="false" />
+          <Property Name="otherInvolved" Type="Boolean" Nullable="false" />
+          <Property Name="otherInvolvedDetails" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="adminComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="adminDebrief" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IncidentStaff">
+          <Key>
+            <PropertyRef Name="incidentStaffId" />
+          </Key>
+          <Property Name="incidentStaffId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="incidentId" Type="Int64" Nullable="false" />
+          <Property Name="userId" Type="Int64" Nullable="false" />
+          <Property Name="staffName" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="staffTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="isPrimary" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Notification">
+          <Key>
+            <PropertyRef Name="notificationId" />
+          </Key>
+          <Property Name="notificationId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="incidentId" Type="Int64" Nullable="false" />
+          <Property Name="notifyPartyId" Type="Int32" Nullable="false" />
+          <Property Name="notifyDateTime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="notifyContact" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="notifyMethod" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="notifyComments" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="notifyStaffId" Type="Int64" Nullable="false" />
+          <Property Name="notifyInfo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="isAcknowledged" Type="Int32" Nullable="false" />
+          <Property Name="acknowledgeUserId" Type="Int64" Nullable="false" />
+          <Property Name="acknowledgedStamp" Type="DateTime" Precision="0" />
+          <Property Name="acknowledgedStation" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ReportSign">
+          <Key>
+            <PropertyRef Name="reportSigId" />
+          </Key>
+          <Property Name="reportSigId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="incidentId" Type="Int64" Nullable="false" />
+          <Property Name="reportSigType" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="incidentMedicalId" Type="Int64" Nullable="false" />
+          <Property Name="reportSigUserId" Type="Int64" Nullable="false" />
+          <Property Name="staffName" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="staffTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="approvalStatusId" Type="Int32" Nullable="false" />
+          <Property Name="approvalComments" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="reportSigStamp" Type="DateTime" Precision="0" />
+          <Property Name="reportSigStation" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="reportSigCreated" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="IncidentProgram">
+          <Key>
+            <PropertyRef Name="incidentProgramId" />
+          </Key>
+          <Property Name="incidentProgramId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="costCenterId" Type="Int32" Nullable="false" />
+          <Property Name="programTitle" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <Property Name="incidentReportTypeId" Type="Int32" Nullable="false" />
+          <Property Name="reportingAgency" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="programSuperId" Type="Int64" />
+          <Property Name="azSubUnit" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="managerId" Type="Int64" Nullable="false" />
+          <Property Name="directorId" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IncidentType">
+          <Key>
+            <PropertyRef Name="incidentTypeId" />
+          </Key>
+          <Property Name="incidentTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="incidentReportTypeId" Type="Int32" Nullable="false" />
+          <Property Name="incidentCategoryId" Type="Int32" Nullable="false" />
+          <Property Name="incidentTypeText" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="needsInfo" Type="Boolean" Nullable="false" />
+          <Property Name="needsInfoLabel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="incidentTypeReportText" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NotifyParty">
+          <Key>
+            <PropertyRef Name="notifyPartyId" />
+          </Key>
+          <Property Name="notifyPartyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="incidentReportTypeId" Type="Int32" Nullable="false" />
+          <Property Name="notifyPartyText" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="needsInfo" Type="Boolean" Nullable="false" />
+          <Property Name="infoCaption" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="infoPlaceholder" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="validMessage" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="contactDefault" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="methodDefault" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProgramNotifier">
+          <Key>
+            <PropertyRef Name="programStaffId" />
+          </Key>
+          <Property Name="programStaffId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="programId" Type="Int32" Nullable="false" />
+          <Property Name="notifyPartyId" Type="Int32" Nullable="false" />
+          <Property Name="userId" Type="Int64" />
+          <Property Name="distEmail" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="smsNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="isRemovable" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReportSigType">
+          <Key>
+            <PropertyRef Name="reportSigTypeId" />
+          </Key>
+          <Property Name="reportSigTypeId" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="reportSigTypeText" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="sortOrder" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReportStatu">
+          <Key>
+            <PropertyRef Name="reportStatusId" />
+          </Key>
+          <Property Name="reportStatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="reportStatusText" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="reportIsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="IncidentsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="IncidentDetails" EntityType="Self.IncidentDetail" />
+          <EntitySet Name="IncidentStaffs" EntityType="Self.IncidentStaff" />
+          <EntitySet Name="Notifications" EntityType="Self.Notification" />
+          <EntitySet Name="ReportSigns" EntityType="Self.ReportSign" />
+          <EntitySet Name="IncidentPrograms" EntityType="Self.IncidentProgram" />
+          <EntitySet Name="IncidentTypes" EntityType="Self.IncidentType" />
+          <EntitySet Name="NotifyParties" EntityType="Self.NotifyParty" />
+          <EntitySet Name="ProgramNotifiers" EntityType="Self.ProgramNotifier" />
+          <EntitySet Name="ReportSigTypes" EntityType="Self.ReportSigType" />
+          <EntitySet Name="ReportStatus" EntityType="Self.ReportStatu" />
+          <EntitySet Name="Comments" EntityType="IncidentsNrModel.Comment" />
+          <EntitySet Name="IncidentReports" EntityType="IncidentsNrModel.IncidentReport" />
+          <EntitySet Name="ApprovalStatus" EntityType="IncidentsNrModel.ApprovalStatu" />
+          <EntitySet Name="HarmRiskLevels" EntityType="IncidentsNrModel.HarmRiskLevel" />
+          <EntitySet Name="SpecialNotifiers" EntityType="IncidentsNrModel.SpecialNotifier" />
+          <EntitySet Name="IncidentAttachments" EntityType="IncidentsNrModel.IncidentAttachment" />
+          <EntitySet Name="Documents" EntityType="IncidentsNrModel.Document" />
+          <EntitySet Name="HighRisks" EntityType="IncidentsNrModel.HighRisk" />
+          <EntitySet Name="ClientSystems" EntityType="IncidentsNrModel.ClientSystem" />
+        </EntityContainer>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="adminCommentId" />
+          </Key>
+          <Property Name="adminCommentId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="incidentId" Type="Int64" Nullable="false" />
+          <Property Name="adminUserId" Type="Int64" Nullable="false" />
+          <Property Name="adminUserName" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="adminCommentText" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="adminCommentStamp" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="isDeleted" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IncidentReport">
+          <Key>
+            <PropertyRef Name="incidentId" />
+          </Key>
+          <Property Name="incidentId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="incidentReportTypeId" Type="Int32" Nullable="false" />
+          <Property Name="userId" Type="Int64" Nullable="false" />
+          <Property Name="staffName" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="staffTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="clientName" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="clientId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="clientDob" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="clientGender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="incidentDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="isApproximate" Type="Boolean" Nullable="false" />
+          <Property Name="programId" Type="Int32" Nullable="false" />
+          <Property Name="reportingAgency" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="incidentLocation" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="createdStamp" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="createdStation" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="statusId" Type="Int32" Nullable="false" />
+          <Property Name="currentUser" Type="Int64" Nullable="false" />
+          <Property Name="lastModified" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="lastModifiedBy" Type="Int64" Nullable="false" />
+          <Property Name="dateDiscovered" Type="DateTime" Precision="0" />
+          <Property Name="isClientHighRisk" Type="Boolean" />
+          <Property Name="incidentTypeId" Type="Int32" Nullable="false" />
+          <Property Name="incidentTime" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="isApproximateTime" Type="Boolean" Nullable="false" />
+          <Property Name="addClientToHighRisk" Type="Boolean" Nullable="false" />
+          <Property Name="incidentOngoing" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ApprovalStatu">
+          <Key>
+            <PropertyRef Name="approvalStatusId" />
+          </Key>
+          <Property Name="approvalStatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="approvalStatusText" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="HarmRiskLevel">
+          <Key>
+            <PropertyRef Name="levelId" />
+          </Key>
+          <Property Name="levelId" Type="Double" Nullable="false" />
+          <Property Name="levelText" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SpecialNotifier">
+          <Key>
+            <PropertyRef Name="notifierId" />
+          </Key>
+          <Property Name="notifierId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="notifierType" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="notifierUserId" Type="Int64" Nullable="false" />
+          <Property Name="notifierName" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="notifierEmail" Type="String" Nullable="false" MaxLength="90" FixedLength="false" Unicode="false" />
+          <Property Name="notifierTitle" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IncidentAttachment">
+          <Key>
+            <PropertyRef Name="incidentAttachmentId" />
+          </Key>
+          <Property Name="incidentAttachmentId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="incidentId" Type="Int64" Nullable="false" />
+          <Property Name="documentId" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Document">
+          <Key>
+            <PropertyRef Name="documentId" />
+          </Key>
+          <Property Name="documentId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fileTypeId" Type="Int32" Nullable="false" />
+          <Property Name="documentFileName" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="documentUrl" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="documentTitle" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="documentComments" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="uploadedBy" Type="Int64" Nullable="false" />
+          <Property Name="uploadedStamp" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="isVoided" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HighRisk">
+          <Key>
+            <PropertyRef Name="highRiskClientId" />
+          </Key>
+          <Property Name="highRiskClientId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="clientId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="systemId" Type="Int32" />
+          <Property Name="clientName" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="dateAdded" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="dateRemoved" Type="DateTime" Precision="0" />
+          <Property Name="clientComments" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="addedById" Type="Int64" Nullable="false" />
+          <Property Name="addedByName" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="addedStamp" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="modifiedById" Type="Int64" />
+          <Property Name="modifiedByName" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="modifiedStamp" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="ClientSystem">
+          <Key>
+            <PropertyRef Name="systemId" />
+          </Key>
+          <Property Name="systemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="systemName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="IncidentsNrModelStoreContainer" CdmEntityContainer="IncidentsEntities">
+          <EntitySetMapping Name="IncidentDetails">
+            <EntityTypeMapping TypeName="IncidentsNrModel.IncidentDetail">
+              <MappingFragment StoreEntitySet="IncidentDetails">
+                <ScalarProperty Name="incidentDetailId" ColumnName="incidentDetailId" />
+                <ScalarProperty Name="incidentId" ColumnName="incidentId" />
+                <ScalarProperty Name="incidentDetails" ColumnName="incidentDetails" />
+                <ScalarProperty Name="childActivity" ColumnName="childActivity" />
+                <ScalarProperty Name="protectiveActions" ColumnName="protectiveActions" />
+                <ScalarProperty Name="eventLocation" ColumnName="eventLocation" />
+                <ScalarProperty Name="harmLevel" ColumnName="harmLevel" />
+                <ScalarProperty Name="riskLevel" ColumnName="riskLevel" />
+                <ScalarProperty Name="contactInfo" ColumnName="contactInfo" />
+                <ScalarProperty Name="incidentComments" ColumnName="incidentComments" />
+                <ScalarProperty Name="internInvolved" ColumnName="internInvolved" />
+                <ScalarProperty Name="volunteerInvolved" ColumnName="volunteerInvolved" />
+                <ScalarProperty Name="visitorInvolved" ColumnName="visitorInvolved" />
+                <ScalarProperty Name="otherInvolved" ColumnName="otherInvolved" />
+                <ScalarProperty Name="otherInvolvedDetails" ColumnName="otherInvolvedDetails" />
+                <ScalarProperty Name="adminComments" ColumnName="adminComments" />
+                <ScalarProperty Name="adminDebrief" ColumnName="adminDebrief" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IncidentStaffs">
+            <EntityTypeMapping TypeName="IncidentsNrModel.IncidentStaff">
+              <MappingFragment StoreEntitySet="IncidentStaff">
+                <ScalarProperty Name="isPrimary" ColumnName="isPrimary" />
+                <ScalarProperty Name="incidentStaffId" ColumnName="incidentStaffId" />
+                <ScalarProperty Name="incidentId" ColumnName="incidentId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="staffName" ColumnName="staffName" />
+                <ScalarProperty Name="staffTitle" ColumnName="staffTitle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notifications">
+            <EntityTypeMapping TypeName="IncidentsNrModel.Notification">
+              <MappingFragment StoreEntitySet="Notifications">
+                <ScalarProperty Name="notificationId" ColumnName="notificationId" />
+                <ScalarProperty Name="incidentId" ColumnName="incidentId" />
+                <ScalarProperty Name="notifyPartyId" ColumnName="notifyPartyId" />
+                <ScalarProperty Name="notifyDateTime" ColumnName="notifyDateTime" />
+                <ScalarProperty Name="notifyContact" ColumnName="notifyContact" />
+                <ScalarProperty Name="notifyMethod" ColumnName="notifyMethod" />
+                <ScalarProperty Name="notifyComments" ColumnName="notifyComments" />
+                <ScalarProperty Name="notifyStaffId" ColumnName="notifyStaffId" />
+                <ScalarProperty Name="notifyInfo" ColumnName="notifyInfo" />
+                <ScalarProperty Name="isAcknowledged" ColumnName="isAcknowledged" />
+                <ScalarProperty Name="acknowledgeUserId" ColumnName="acknowledgeUserId" />
+                <ScalarProperty Name="acknowledgedStamp" ColumnName="acknowledgedStamp" />
+                <ScalarProperty Name="acknowledgedStation" ColumnName="acknowledgedStation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportSigns">
+            <EntityTypeMapping TypeName="IncidentsNrModel.ReportSign">
+              <MappingFragment StoreEntitySet="ReportSigns">
+                <ScalarProperty Name="reportSigCreated" ColumnName="reportSigCreated" />
+                <ScalarProperty Name="reportSigId" ColumnName="reportSigId" />
+                <ScalarProperty Name="incidentId" ColumnName="incidentId" />
+                <ScalarProperty Name="reportSigType" ColumnName="reportSigType" />
+                <ScalarProperty Name="incidentMedicalId" ColumnName="incidentMedicalId" />
+                <ScalarProperty Name="reportSigUserId" ColumnName="reportSigUserId" />
+                <ScalarProperty Name="staffName" ColumnName="staffName" />
+                <ScalarProperty Name="staffTitle" ColumnName="staffTitle" />
+                <ScalarProperty Name="approvalStatusId" ColumnName="approvalStatusId" />
+                <ScalarProperty Name="approvalComments" ColumnName="approvalComments" />
+                <ScalarProperty Name="reportSigStamp" ColumnName="reportSigStamp" />
+                <ScalarProperty Name="reportSigStation" ColumnName="reportSigStation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IncidentPrograms">
+            <EntityTypeMapping TypeName="IncidentsNrModel.IncidentProgram">
+              <MappingFragment StoreEntitySet="IncidentPrograms">
+                <ScalarProperty Name="directorId" ColumnName="directorId" />
+                <ScalarProperty Name="managerId" ColumnName="managerId" />
+                <ScalarProperty Name="incidentProgramId" ColumnName="incidentProgramId" />
+                <ScalarProperty Name="costCenterId" ColumnName="costCenterId" />
+                <ScalarProperty Name="programTitle" ColumnName="programTitle" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="incidentReportTypeId" ColumnName="incidentReportTypeId" />
+                <ScalarProperty Name="reportingAgency" ColumnName="reportingAgency" />
+                <ScalarProperty Name="programSuperId" ColumnName="programSuperId" />
+                <ScalarProperty Name="azSubUnit" ColumnName="azSubUnit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IncidentTypes">
+            <EntityTypeMapping TypeName="IncidentsNrModel.IncidentType">
+              <MappingFragment StoreEntitySet="IncidentTypes">
+                <ScalarProperty Name="incidentTypeId" ColumnName="incidentTypeId" />
+                <ScalarProperty Name="incidentReportTypeId" ColumnName="incidentReportTypeId" />
+                <ScalarProperty Name="incidentCategoryId" ColumnName="incidentCategoryId" />
+                <ScalarProperty Name="incidentTypeText" ColumnName="incidentTypeText" />
+                <ScalarProperty Name="needsInfo" ColumnName="needsInfo" />
+                <ScalarProperty Name="needsInfoLabel" ColumnName="needsInfoLabel" />
+                <ScalarProperty Name="incidentTypeReportText" ColumnName="incidentTypeReportText" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NotifyParties">
+            <EntityTypeMapping TypeName="IncidentsNrModel.NotifyParty">
+              <MappingFragment StoreEntitySet="NotifyParties">
+                <ScalarProperty Name="notifyPartyId" ColumnName="notifyPartyId" />
+                <ScalarProperty Name="incidentReportTypeId" ColumnName="incidentReportTypeId" />
+                <ScalarProperty Name="notifyPartyText" ColumnName="notifyPartyText" />
+                <ScalarProperty Name="needsInfo" ColumnName="needsInfo" />
+                <ScalarProperty Name="infoCaption" ColumnName="infoCaption" />
+                <ScalarProperty Name="infoPlaceholder" ColumnName="infoPlaceholder" />
+                <ScalarProperty Name="validMessage" ColumnName="validMessage" />
+                <ScalarProperty Name="contactDefault" ColumnName="contactDefault" />
+                <ScalarProperty Name="methodDefault" ColumnName="methodDefault" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProgramNotifiers">
+            <EntityTypeMapping TypeName="IncidentsNrModel.ProgramNotifier">
+              <MappingFragment StoreEntitySet="ProgramNotifiers">
+                <ScalarProperty Name="programStaffId" ColumnName="programStaffId" />
+                <ScalarProperty Name="programId" ColumnName="programId" />
+                <ScalarProperty Name="notifyPartyId" ColumnName="notifyPartyId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="distEmail" ColumnName="distEmail" />
+                <ScalarProperty Name="smsNumber" ColumnName="smsNumber" />
+                <ScalarProperty Name="isRemovable" ColumnName="isRemovable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportSigTypes">
+            <EntityTypeMapping TypeName="IncidentsNrModel.ReportSigType">
+              <MappingFragment StoreEntitySet="ReportSigTypes">
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="reportSigTypeId" ColumnName="reportSigTypeId" />
+                <ScalarProperty Name="reportSigTypeText" ColumnName="reportSigTypeText" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportStatus">
+            <EntityTypeMapping TypeName="IncidentsNrModel.ReportStatu">
+              <MappingFragment StoreEntitySet="ReportStatus">
+                <ScalarProperty Name="reportStatusId" ColumnName="reportStatusId" />
+                <ScalarProperty Name="reportStatusText" ColumnName="reportStatusText" />
+                <ScalarProperty Name="reportIsActive" ColumnName="reportIsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="IncidentsNrModel.Comment">
+              <MappingFragment StoreEntitySet="AdminComments">
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="adminCommentStamp" ColumnName="adminCommentStamp" />
+                <ScalarProperty Name="adminCommentText" ColumnName="adminCommentText" />
+                <ScalarProperty Name="adminUserName" ColumnName="adminUserName" />
+                <ScalarProperty Name="adminUserId" ColumnName="adminUserId" />
+                <ScalarProperty Name="incidentId" ColumnName="incidentId" />
+                <ScalarProperty Name="adminCommentId" ColumnName="adminCommentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IncidentReports">
+            <EntityTypeMapping TypeName="IncidentsNrModel.IncidentReport">
+              <MappingFragment StoreEntitySet="IncidentReport">
+                <ScalarProperty Name="incidentOngoing" ColumnName="incidentOngoing" />
+                <ScalarProperty Name="addClientToHighRisk" ColumnName="addClientToHighRisk" />
+                <ScalarProperty Name="isApproximateTime" ColumnName="isApproximateTime" />
+                <ScalarProperty Name="incidentTime" ColumnName="incidentTime" />
+                <ScalarProperty Name="incidentTypeId" ColumnName="incidentTypeId" />
+                <ScalarProperty Name="isClientHighRisk" ColumnName="isClientHighRisk" />
+                <ScalarProperty Name="dateDiscovered" ColumnName="dateDiscovered" />
+                <ScalarProperty Name="lastModifiedBy" ColumnName="lastModifiedBy" />
+                <ScalarProperty Name="lastModified" ColumnName="lastModified" />
+                <ScalarProperty Name="currentUser" ColumnName="currentUser" />
+                <ScalarProperty Name="statusId" ColumnName="statusId" />
+                <ScalarProperty Name="createdStation" ColumnName="createdStation" />
+                <ScalarProperty Name="createdStamp" ColumnName="createdStamp" />
+                <ScalarProperty Name="incidentLocation" ColumnName="incidentLocation" />
+                <ScalarProperty Name="reportingAgency" ColumnName="reportingAgency" />
+                <ScalarProperty Name="programId" ColumnName="programId" />
+                <ScalarProperty Name="isApproximate" ColumnName="isApproximate" />
+                <ScalarProperty Name="incidentDate" ColumnName="incidentDate" />
+                <ScalarProperty Name="clientGender" ColumnName="clientGender" />
+                <ScalarProperty Name="clientDob" ColumnName="clientDob" />
+                <ScalarProperty Name="clientId" ColumnName="clientId" />
+                <ScalarProperty Name="clientName" ColumnName="clientName" />
+                <ScalarProperty Name="staffTitle" ColumnName="staffTitle" />
+                <ScalarProperty Name="staffName" ColumnName="staffName" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="incidentReportTypeId" ColumnName="incidentReportTypeId" />
+                <ScalarProperty Name="incidentId" ColumnName="incidentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ApprovalStatus">
+            <EntityTypeMapping TypeName="IncidentsNrModel.ApprovalStatu">
+              <MappingFragment StoreEntitySet="ApprovalStatus">
+                <ScalarProperty Name="approvalStatusText" ColumnName="approvalStatusText" />
+                <ScalarProperty Name="approvalStatusId" ColumnName="approvalStatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HarmRiskLevels">
+            <EntityTypeMapping TypeName="IncidentsNrModel.HarmRiskLevel">
+              <MappingFragment StoreEntitySet="HarmRiskLevels">
+                <ScalarProperty Name="levelText" ColumnName="levelText" />
+                <ScalarProperty Name="levelId" ColumnName="levelId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SpecialNotifiers">
+            <EntityTypeMapping TypeName="IncidentsNrModel.SpecialNotifier">
+              <MappingFragment StoreEntitySet="SpecialNotifiers">
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="notifierTitle" ColumnName="notifierTitle" />
+                <ScalarProperty Name="notifierEmail" ColumnName="notifierEmail" />
+                <ScalarProperty Name="notifierName" ColumnName="notifierName" />
+                <ScalarProperty Name="notifierUserId" ColumnName="notifierUserId" />
+                <ScalarProperty Name="notifierType" ColumnName="notifierType" />
+                <ScalarProperty Name="notifierId" ColumnName="notifierId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IncidentAttachments">
+            <EntityTypeMapping TypeName="IncidentsNrModel.IncidentAttachment">
+              <MappingFragment StoreEntitySet="IncidentAttachments">
+                <ScalarProperty Name="documentId" ColumnName="documentId" />
+                <ScalarProperty Name="incidentId" ColumnName="incidentId" />
+                <ScalarProperty Name="incidentAttachmentId" ColumnName="incidentAttachmentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Documents">
+            <EntityTypeMapping TypeName="IncidentsNrModel.Document">
+              <MappingFragment StoreEntitySet="Documents">
+                <ScalarProperty Name="isVoided" ColumnName="isVoided" />
+                <ScalarProperty Name="uploadedStamp" ColumnName="uploadedStamp" />
+                <ScalarProperty Name="uploadedBy" ColumnName="uploadedBy" />
+                <ScalarProperty Name="documentComments" ColumnName="documentComments" />
+                <ScalarProperty Name="documentTitle" ColumnName="documentTitle" />
+                <ScalarProperty Name="documentUrl" ColumnName="documentUrl" />
+                <ScalarProperty Name="documentFileName" ColumnName="documentFileName" />
+                <ScalarProperty Name="fileTypeId" ColumnName="fileTypeId" />
+                <ScalarProperty Name="documentId" ColumnName="documentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HighRisks">
+            <EntityTypeMapping TypeName="IncidentsNrModel.HighRisk">
+              <MappingFragment StoreEntitySet="HighRisk">
+                <ScalarProperty Name="modifiedStamp" ColumnName="modifiedStamp" />
+                <ScalarProperty Name="modifiedByName" ColumnName="modifiedByName" />
+                <ScalarProperty Name="modifiedById" ColumnName="modifiedById" />
+                <ScalarProperty Name="addedStamp" ColumnName="addedStamp" />
+                <ScalarProperty Name="addedByName" ColumnName="addedByName" />
+                <ScalarProperty Name="addedById" ColumnName="addedById" />
+                <ScalarProperty Name="clientComments" ColumnName="clientComments" />
+                <ScalarProperty Name="dateRemoved" ColumnName="dateRemoved" />
+                <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />
+                <ScalarProperty Name="clientName" ColumnName="clientName" />
+                <ScalarProperty Name="systemId" ColumnName="systemId" />
+                <ScalarProperty Name="clientId" ColumnName="clientId" />
+                <ScalarProperty Name="highRiskClientId" ColumnName="highRiskClientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientSystems">
+            <EntityTypeMapping TypeName="IncidentsNrModel.ClientSystem">
+              <MappingFragment StoreEntitySet="ClientSystems">
+                <ScalarProperty Name="systemName" ColumnName="systemName" />
+                <ScalarProperty Name="systemId" ColumnName="systemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Sandbox";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<h2>Sandbox</h2>
+
+<p><input type="text" size="12" maxlength="12" id="incident-time" /></p>
+
+<p><button id="tester" type="button">test</button></p>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#tester').click(function () {
+            //var regex = /^([0-1]\d):([0-5]\d)\s?(?:AM|PM)?$/i;
+            var regex = /^([0]?[1-9]|1[0-2]):([0-5]\d)\s?(AM|PM)$/i;
+
+            if (!regex.test($('#incident-time').val())) {
+                alert('Incident time is not in the correct format of hh:mm AM.');
+                return;
+            }
+            else {
+                alert('Proceed!');
+            }
+        });
+    });
+    
+</script>cfs

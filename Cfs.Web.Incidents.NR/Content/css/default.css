@@ -1,0 +1,122 @@
+﻿html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: 'Source Sans Pro';
+    font-size: 14px;
+    font-weight: normal;
+    padding-top: 80px;
+}
+
+
+table.auto-width {
+    width: auto !important;
+}
+
+h2
+{
+    margin-bottom: 1.2em;
+}
+
+
+iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 800px;
+    border: 1px solid #e6e6e6;
+}
+
+
+div.page-container {
+    margin: 2em;
+}
+
+h3.h3-report-section {
+    font-size: 1.4em;
+    margin: 4em 0 1.4em;
+    padding-bottom: 0.4em;
+    border-bottom: solid 1px #eee;
+}
+
+input[required], textarea[required] {
+    border-left: 4px solid #e22222;
+}
+
+    input[required]:valid, textarea[required]:valid {
+        border-left: 4px solid #228b22;
+    }
+
+button:active {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+    background-image: none;
+    outline: 0;
+    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
+
+
+.ui-autocomplete {
+    position: absolute;
+    z-index: 1000;
+    cursor: default;
+    padding: 0;
+    margin-top: 2px;
+    list-style: none;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    -webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+       -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+.ui-autocomplete > li {
+  padding: 3px 20px;
+}
+.ui-autocomplete > li.ui-state-focus {
+  background-color: #DDD;
+}
+.ui-helper-hidden-accessible {
+  display: none;
+}
+
+
+.warning {
+    color: #e22222;
+}
+
+div.user-response-display {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-weight: bold;
+}
+
+
+span.progress-message {
+    font-weight: bold;
+}
+
+span.incident-type-label {
+    display: inline-block;
+    margin-left: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-weight: bold;
+}

@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.Title = "Search Incident Reports";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+@section AdditionalIncludes {
+    <script type="text/javascript" src="~/scripts/controllers/search.js"></script>
+}
+
+<div ng-app="SearchApp" ng-controller="SearchController">
+
+    <h2>Search Incident Reports</h2>
+
+    <p>You only need to enter the first few letters of the client's name.  Search results are returned based on dates created, not date of incident.</p>
+    <form>
+        <div class="clearfix">
+            <div class="form-group col-xs-2">
+                <label for="client-name" class="control-label">Client Name:</label>
+                <input type="text" id="client-name" class="form-control" required ng-model="clientName" />
+            </div>
+            <div class="form-group col-xs-2">
+                <label for="start-date" class="control-label">Start Date:</label>
+                <input type="date" id="start-date" class="form-control" required ng-model="startDate" />
+            </div>
+            <div class="form-group col-xs-2">
+                <label for="end-date" class="control-label">End Date:</label>
+                <input type="date" id="end-date" class="form-control" required ng-model="endDate" />
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn-info" ng-click="SearchReports()"><span class="fa fa-search"></span> Search</button>
+        </div>
+    </form>
+
+
+    <table class="table" ng-show="results.length">
+        <thead>
+            <tr>
+                <th>Incident Date</th>
+                <th>Client</th>
+                <th>Program</th>
+                <th>Staff</th>
+                <th>Incident Location</th>
+                <th>Report Initiated</th>
+                <th>Current Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody ng-repeat="report in results">
+            <tr>
+                <td>{{report.incidentDate | date: 'M/d/yyyy' }}</td>
+                <td>{{report.clientName}}</td>
+                <td>{{report.programTitle}}</td>
+                <td>{{report.staffName}}</td>
+                <td>{{report.incidentLocation}}</td>
+                <td>{{report.createdStamp | date: 'M/d/yyyy h:mm a' }}</td>
+                <td>{{report.reportStatusText}}</td>
+                <td><button class="btn btn-sm btn-primary" ng-click="ViewReport(report.incidentId)"><span class="fa fa-binoculars"></span> view</button>
+                    <!-- NEED VOID FUNCTION -->
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+</div>
+
+
+<script type="text/javascript">
+
+    var _userId = @(ViewBag.UserId);
+
+</script>
+

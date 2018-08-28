@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ab8739aed39343f89a3c5e39f7d6fd91" Name="Diagram1">
+        <EntityTypeShape EntityType="IncidentsNrModel.IncidentDetail" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IncidentsNrModel.IncidentStaff" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IncidentsNrModel.Notification" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IncidentsNrModel.ReportSign" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IncidentsNrModel.IncidentProgram" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IncidentsNrModel.IncidentType" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IncidentsNrModel.NotifyParty" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IncidentsNrModel.ProgramNotifier" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IncidentsNrModel.ReportSigType" Width="1.5" PointX="8.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IncidentsNrModel.ReportStatu" Width="1.5" PointX="8.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IncidentsNrModel.Comment" Width="1.5" PointX="9.375" PointY="10.75" />
+        <EntityTypeShape EntityType="IncidentsNrModel.IncidentReport" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="IncidentsNrModel.ApprovalStatu" Width="1.5" PointX="0.75" PointY="11.75" />
+        <EntityTypeShape EntityType="IncidentsNrModel.HarmRiskLevel" Width="1.5" PointX="3.375" PointY="11.75" />
+        <EntityTypeShape EntityType="IncidentsNrModel.SpecialNotifier" Width="1.5" PointX="5.375" PointY="11.75" />
+        <EntityTypeShape EntityType="IncidentsNrModel.IncidentAttachment" Width="1.5" PointX="11.375" PointY="7.75" />
+        <EntityTypeShape EntityType="IncidentsNrModel.Document" Width="1.5" PointX="11.375" PointY="10.75" />
+        <EntityTypeShape EntityType="IncidentsNrModel.HighRisk" Width="1.5" PointX="13.375" PointY="0.75" />
+        <EntityTypeShape EntityType="IncidentsNrModel.ClientSystem" Width="1.5" PointX="13.375" PointY="5.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

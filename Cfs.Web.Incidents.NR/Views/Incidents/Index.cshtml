@@ -1,0 +1,255 @@
+﻿
+@{
+    ViewBag.Title = "New Incident Report";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+@section AdditionalIncludes {
+    <link rel="stylesheet" type="text/css" href="~/Content/css/fancyapps.core.css" />
+    <script type="text/javascript" src="~/scripts/fancyapps.core.js"></script>
+    <script type="text/javascript" src="~/scripts/controllers/reports/new.js"></script>
+}
+
+<div ng-app="NewReportApp" ng-controller="NewReportController">
+
+    <h2>New Client Incident Report</h2>
+
+    <form>
+        <div class="form-group">
+            <label for="program-list">Program/Department:</label>
+            <select class="form-control" id="program-list" ng-model="header.programId">
+                <!-- ng-model="header.programId" -->
+                <option value="0">--Select Program--</option>
+                <option ng-repeat="program in programs" value="{{program.incidentProgramId}}">{{program.programTitle}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Person Completing Report: </label>
+            <input type="text" class="form-control" disabled="disabled" value="@(ViewBag.StaffName), @(ViewBag.StaffTitle)" />
+        </div>
+        <div class="clearfix">
+            <div class="form-group col-xs-2">
+                <label for="incident-date" class="control-label">Date of event:</label>
+                <input type="date" id="incident-date" class="form-control" required ng-model="header.incidentDate" />
+                <div>
+                    <label class="radio-inline"><input type="checkbox" id="is-approximate" ng-model="header.isApproximate" /> Is approximate date</label>
+                </div>
+                <div>
+                    <label class="radio-inline"><input type="checkbox" id="is-ongoing" ng-model="header.incidentOngoing" /> Ongoing?</label>
+                </div>
+            </div>
+            <div class="form-group col-xs-2">
+                <label for="incident-time" class="control-label">Time of event:</label>
+                <input type="text" id="incident-time" class="form-control" required ng-model="header.incidentTime" maxlength="20" />
+            </div>
+            <div class="form-group col-xs-2">
+                <label for="date-discovered" class="control-label">Date discovered:</label>
+                <input type="date" id="date-discovered" class="form-control" required ng-model="header.dateDiscovered" />
+            </div>
+            <div class="form-group col-xs-6">
+                <label for="event-location" class="control-label">Location of event:</label>
+                <input type="text" id="event-location" class="form-control" required ng-model="header.incidentLocation" />
+            </div>
+        </div>
+        <h3 class="h3-report-section">Client Information</h3>
+        <div class="clearfix">
+            <div class="form-group col-xs-4">
+                <label for="client-name" class="control-label">Client name:</label>
+                <input type="text" id="client-name" class="form-control" ng-model="header.clientName" required />
+            </div>
+            <div class="form-group col-xs-2">
+                <label for="client-id" class="control-label">Client ID#:</label>
+                <input type="text" id="client-id" class="form-control" ng-model="header.clientId" />
+            </div>
+            <div class="form-group col-xs-2">
+                <label for="client-gender" class="control-label">Client gender:</label>
+                <div>
+                    <label class="radio-inline"><input type="radio" name="client-gender" value="F" ng-model="header.clientGender" /> Female</label>
+                    <label class="radio-inline"><input type="radio" name="client-gender" value="M" ng-model="header.clientGender" /> Male</label>
+                </div>
+            </div>
+            <div class="form-group col-xs-2">
+                <label for="birth-date" class="control-label">Client birth date:</label>
+                <input type="date" id="birth-date" class="form-control" ng-model="header.clientDob" required />
+            </div>
+            <div class="form-group col-xs-12">
+                <label for="contact-information" class="control-label">Contact information:</label>
+                <textarea id="contact-information" class="form-control" maxlength="500" rows="4" cols="120" ng-model="details.contactInfo" placeholder="Include name, address, and telephone number of individual involved." required></textarea>
+            </div>
+            <div class="form-group col-xs-12">
+                <label>Is the client on the high-risk list?</label>
+                <div>
+                    <label class="radio-inline"><input type="radio" name="is-high-risk" value="true" ng-model="header.isClientHighRisk" /> Yes</label>
+                    <label class="radio-inline"><input type="radio" name="is-high-risk" value="false" ng-model="header.isClientHighRisk" /> No</label>
+                </div>
+            </div>
+            <div class="form-group col-xs-12">
+                <label>Add client to the high-risk list?</label>
+                <div>
+                    <label class="radio-inline"><input type="radio" name="add-high-risk" value="true" ng-model="header.addClientToHighRisk" /> Yes</label>
+                    <label class="radio-inline"><input type="radio" name="add-high-risk" value="false" ng-model="header.addClientToHighRisk" /> No</label>
+                </div>
+            </div>
+        </div>
+
+
+
+        <h3 class="h3-report-section">Staff Involved</h3>
+        <p>
+            Add any other staff involved in this incident.  An <b>Employee Accident/Alleged Injury Investigation Report</b> must also be completed
+            for any <i>accidents</i> involving staff.
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Staff Name</th>
+                    <th>Staff Title</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="staff in incidentStaff">
+                    <td>{{staff.staffName}}</td>
+                    <td>{{staff.staffTitle}}</td>
+                    <td>
+                        <span ng-hide="staff.isPrimary"><span ng-click="RemoveStaff(staff)" class="fa fa-trash"></span></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="clearfix">
+            <div class="form-group col-xs-6">
+                <label for="staff-search">Search for Staff by Name:</label>
+                <input type="search" id="staff-search" class="form-control" maxlength="80" />
+            </div>
+        </div>
+        <h3 class="h3-report-section">Other Individuals Involved</h3>
+        <div class="form-group">
+            <label>Individuals other than client and staff involved: (check all that apply)</label>
+            <div>
+                <label class="checkbox-inline"><input type="checkbox" name="involved" value="intern-involved" ng-model="details.internInvolved" /> Intern</label>
+                <label class="checkbox-inline"><input type="checkbox" name="involved" value="volunteer-involved" ng-model="details.volunteerInvolved" /> Volunteer</label>
+                <label class="checkbox-inline"><input type="checkbox" name="involved" value="visitor-involved" ng-model="details.visitorInvolved" /> Visitor</label>
+                <label class="checkbox-inline"><input type="checkbox" name="involved" value="other-involved" ng-model="details.otherInvolved" /> Other</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="others-involved" class="control-label">Information about other individuals involved:</label>
+            <textarea id="others-involved" class="form-control" maxlength="500" rows="4" cols="120" ng-model="details.otherInvolvedDetails"></textarea>
+        </div>
+
+        <h3 class="h3-report-section">Incident Details</h3>
+        <div class="form-group">
+            <label>Type of Incident:</label>
+            <div>
+                <div class="checkbox" ng-repeat="incidentType in incidentTypes">
+                    <label><input type="radio" name="incident-type" value="{{incidentType.incidentTypeId}}" ng-model="$parent.header.incidentTypeId" /> {{incidentType.incidentTypeText}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix">
+            <div class="form-group col-xs-2">
+                <label for="level-of-harm" class="control-label">Level of harm:</label>
+                <select id="level-of-harm" class="form-control" ng-model="details.harmLevel">
+                    <option value="1">Low</option>
+                    <option value="3">Med</option>
+                    <option value="5">High</option>
+                </select>
+            </div>
+            <div class="form-group col-xs-2">
+                <label for="level-of-risk" class="control-label">Level of risk:</label>
+                <select id="level-of-risk" class="form-control" ng-model="details.riskLevel">
+                    <option value="1">Low</option>
+                    <option value="3">Med</option>
+                    <option value="5">High</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="incident-description" class="control-label">Description of event and interventions:</label>
+            <textarea id="incident-description" class="form-control" rows="20" cols="120" placeholder="Include information regarding those involved." ng-model="details.incidentDetails" required></textarea>
+        </div>
+
+
+        <h3 class="h3-report-section">Attachments</h3>
+
+
+        <div class="panel panel-default" id="upload-file-panel">
+            <div class="panel-heading"><span class="fa fa-paperclip"></span> Upload Attachment</div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label for="document-title" class="control-label">Document Title/Short Description:</label>
+                    <input type="text" class="form-control" ng-model="documentTitle" id="document-title" />
+                </div>
+                <div class="form-group">
+                    <label for="document-comments" class="control-label">Comments:</label>
+                    <textarea id="document-comments" class="form-control" rows="4" maxlength="500" ng-model="documentComments"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="document-upload" class="control-label">Document to Attach:</label>
+                    <input type="file" id="document-upload" onchange="angular.element(this).scope().UploadFile(this.files)" />
+                </div>
+            </div>
+        </div>
+
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Attachment</th>
+                    <th>Title</th>
+                    <th>Comments</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="document in documents">
+                    <td>{{document.documentFile}}</td>
+                    <td>{{document.documentTitle}}</td>
+                    <td>{{document.documentComments}}</td>
+                    <td><a data-fancybox="attachment-gallery" href="{{document.documentUrl}}"><span class="fa fa-eye"></span></a>
+                        <span class="fa fa-trash" title="Remove" ng-click="RemoveDocument(document)"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+       
+
+
+        <h3 class="h3-report-section">Save Incident Report</h3>
+        <p>
+            If you save the report, you will be able to edit it later.  Once final approved, it will be submitted to your supervisor
+            for review.
+        </p>
+
+        <div class="alert alert-danger" ng-hide="signatureValidated"><b>Unable to validate signature.</b>  Please sign using your CFS account password.</div>
+        <div class="alert alert-info" ng-show="isSaving">Saving report.  Please wait.  <span ng-bind="progressMessage" class="progress-message"></span></div>
+
+
+        <div class="form-group">
+            <label for="user-signature">Signature:</label>
+            <input type="password" id="user-signature" ng-model="credentials" size="30" maxlength="20" />
+
+        </div>
+
+
+
+        <div class="form-group">
+            <button id="save-report" class="btn btn-primary" type="button" ng-disabled="isSaving" ng-click="SaveReport()"><span class="fa fa-floppy-o"></span> save</button>
+            <button id="final-approve" class="btn btn-success" type="button" ng-disabled="isSaving" ng-click="FinalApproveReport()"><span class="fa fa-lock"></span> final approve</button>
+        </div>
+
+    </form>
+</div>
+
+<script type="text/javascript">
+
+    var _userId = @(ViewBag.UserId);
+    var _staffName = '@(ViewBag.StaffName)';
+    var _staffTitle = '@(ViewBag.StaffTitle)';
+    var _staffEmail = '@(ViewBag.StaffEmail)';
+    var _stationName = '@(ViewBag.StationName)';
+
+</script>
+

@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+@section AdditionalIncludes {
+
+    <script type="text/javascript" src="~/scripts/controllers/home.js"></script>
+}
+
+<div ng-app="HomePageApp" ng-controller="HomePageController">
+   
+
+    <div class="alert alert-danger" ng-show="IE">We detect you are using Internet Explorer.  Please use Google Chrome with this application.</div>
+
+    <div class="btn-toolbar">
+        <button type="button" class="btn btn-success" ng-click="NewReport()"><span class="fa fa-file-text-o"></span> New Incident Report</button>
+        <button type="button" class="btn btn-info" ng-click="SearchReports()"><span class="fa fa-search"></span> Search Reports</button>
+        <button type="button" class="btn btn-info" ng-click="LaunchAnalysis()"><span class="fa fa-bar-chart"></span> Analysis</button>
+    </div>
+
+    <h2>My Open Reports</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Incident Date</th>
+                <th>Client</th>
+                <th>Incident Location</th>
+                <th>Report Initiated</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody ng-repeat="report in myReports">
+            <tr>
+                <td><span ng-show="report.isClientHighRisk" class="fa fa-exclamation-circle warning" title="Client is High Risk!"></span></td>
+                <td>{{report.incidentDate | date: 'M/d/yyyy' }}</td>
+                <td>{{report.clientName}}</td>
+                <td>{{report.incidentLocation}}</td>
+                <td>{{report.createdStamp | date: 'M/d/yyyy h:mm a' }}</td>
+                <td><button class="btn btn-sm btn-primary" ng-click="EditReport(report.incidentId)"><span class="fa fa-pencil"></span> edit</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <h2>Reports Requiring My Signature</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Incident Date</th>
+                <th>Client</th>
+                <th>Staff</th>
+                <th>Incident Location</th>
+                <th>Report Initiated</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody ng-repeat="report in mySigns">
+            <tr>
+                <td><span ng-show="report.isClientHighRisk" class="fa fa-exclamation-circle warning" title="Client is High Risk!"></span></td>
+                <td>{{report.incidentDate | date: 'M/d/yyyy' }}</td>
+                <td>{{report.clientName}}</td>
+                <td>{{report.staffName}}</td>
+                <td>{{report.incidentLocation}}</td>
+                <td>{{report.createdStamp | date: 'M/d/yyyy h:mm a' }}</td>
+                <td><button class="btn btn-sm btn-info" ng-click="ReviewReport(report.incidentId)"><span class="fa fa-search"></span> review</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    
+
+</div>
+
+
+<script type="text/javascript">
+
+    var _userId = @(ViewBag.UserId);
+    var _greeting = '@(ViewBag.Greeting)';
+    var _browser = '@(ViewBag.Browser)';
+
+</script>

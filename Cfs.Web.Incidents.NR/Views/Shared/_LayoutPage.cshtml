@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    @Styles.Render("~/content/theme")
+    <!--[if IE]>
+        <link rel="stylesheet" type="text/css" href="/content/css/ie.css" />
+    <![endif]-->
+    @Scripts.Render("~/scripts/app")
+    <title>@ViewBag.Title :: CFS Incident Reports</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:300|Source+Sans+Pro:400,700" rel="stylesheet">
+    @RenderSection("AdditionalIncludes", required: false)
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">Non-Residential Client Incident Reports</a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <form class="navbar-form navbar-right">
+                    <div class="form-group">
+                        <button class="btn btn-info" type="button" id="home-button"><span class="fa fa-home"></span> Home</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+    </nav>
+    <div class="page-container container">
+        @RenderBody()
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#home-button').click(function () {
+                window.location = '/';
+            });
+        });
+    </script>
+</body>
+</html>

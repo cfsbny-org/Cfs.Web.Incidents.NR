@@ -1,0 +1,148 @@
+﻿*
+{
+    font-family: Segoe UI, Calibri, Tahoma, Sans-Serif;
+    font-size: 12px;
+    color: #000000;
+    background-color: #ffffff;
+}
+body
+{
+    font-family: Segoe UI, Calibri, Tahoma, Sans-Serif;
+    font-size: 12px;
+    color: #000000;
+    background-color: #ffffff;
+}
+p
+{
+    font-family: Segoe UI, Calibri, Tahoma, Sans-Serif;
+    font-size: 12px;
+}
+
+ul li
+{
+    font-family: Segoe UI, Calibri, Tahoma, Sans-Serif;
+    font-size: 12px;
+}
+div
+{
+    font-family: Segoe UI, Calibri, Tahoma, Sans-Serif;
+    font-size: 12px;
+}
+h1
+{
+    font-family: Segoe UI, Calibri, Tahoma, Sans-Serif;
+    font-size: 20px;
+    font-weight: normal;
+    color: #000000;
+    background-color: #ffffff;
+}
+h1.small-header
+{
+    font-size: 16px;
+}
+table
+{
+    font-family: Segoe UI, Calibri, Tahoma, Sans-Serif;
+    font-size: 12px;
+    color: #000000;
+    background-color: #ffffff;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+th
+{
+    padding: 4px 6px;
+    border-color: #696969;
+}
+td
+{
+    padding: 4px 6px;
+    border-color: #696969;
+}
+tr.red-row td
+{
+    color: #c00000;
+}
+tr.minor-error-row td
+{
+    background-color: #fef1ec;
+    color: #cd0a0a !important;
+    font-weight: bold;
+}
+tr.error-row td
+{
+    background-color: #c00000;
+    color: #f6f6f6;
+    font-weight: bold;
+}
+tr.shaded-row td
+{
+    background-color: #eaeaea;
+    color: #696969;
+}
+tr.warning-row td
+{
+    background-color: #f8da4e;
+    color: #915608;
+}
+tr.alternate-row td
+{
+    background-color: #efefef;
+}
+tr.strike-through td
+{
+    text-decoration: line-through;
+}
+tr.bold-row td
+{
+    font-weight: bold;
+}
+tfoot td
+{
+    font-weight: bold;
+}
+tfoot.shaded-footer tr td
+{
+    background-color: #eaeaea;
+}
+td.saturday
+{
+    background-color: #eeeeee !important;
+}
+td.sunday
+{
+    background-color: #dcdcdc !important;
+}
+td.faded
+{
+    color: #696969;
+}
+td.shaded
+{
+    background-color: #ededed !important;
+}
+.centered
+{
+    text-align: center;
+}
+.bold-text
+{
+    font-weight: bold;
+}
+.error
+{
+    color: #c00000 !important;
+    font-weight: bold;
+}
+.page-break
+{
+    display: none;
+}
+@media print
+{
+    .new-page
+    {
+        display: block;
+        page-break-before: always;
+    }
+}
